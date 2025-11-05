@@ -31,9 +31,15 @@ import EssentialLink from 'components/EssentialLink.vue'
 const linksList = [
   {
     title: 'Home',
-    caption: 'Produtos Compartilhados',
+    caption: 'Economapp',
     icon: 'home',
     link: '#/',
+  },
+  {
+    title: 'Produtos',
+    caption: 'Produtos Compartilhados',
+    icon: 'shopping_cart',
+    link: '#/produtos',
   },
   {
     title: 'Compartilhar',

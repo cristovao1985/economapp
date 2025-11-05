@@ -1,6 +1,13 @@
 <template>
   <q-page class="q-ma-md">
-    <q-input filled bottom-slots v-model="filter" label="Digite o nome do produto" debounce="1000">
+    <q-input
+      filled
+      bottom-slots
+      v-model="filter"
+      label="Pesquisar produtos"
+      placeholder="Digite o nome do produto"
+      debounce="1000"
+    >
       <template v-slot:after>
         <q-btn icon="qr_code_scanner" to="nfe" flat round />
       </template>
@@ -10,14 +17,14 @@
       <q-item>
         <q-item-section>
           <q-item-label>{{ produto.nome }}</q-item-label>
-          <q-item-label caption lines="2">{{ produto.codigo_barras }}</q-item-label>
+          <!-- <q-item-label caption lines="2">{{ produto.codigo_barras }}</q-item-label> -->
           <q-item-label caption lines="2"
-            >{{ produto.loja }} às {{ formatDateTime(produto.data_hora) }}</q-item-label
+            >{{ produto.loja }} | {{ formatDateTime(produto.data_hora) }}</q-item-label
           >
         </q-item-section>
 
         <q-item-section side top>
-          <q-item-label caption>R${{ produto.valor }}</q-item-label>
+          <q-item-label class="text-positive text-bold">R${{ produto.valor }}</q-item-label>
           <!-- <q-icon name="star" color="yellow" /> -->
         </q-item-section>
       </q-item>
