@@ -1,5 +1,10 @@
 <template>
   <q-page class="q-ma-md">
+    <q-card class="q-mb-md q-pa-md" flat bordered>
+      Pesquise o produto e compare os valores informados entre as lojas. Recomendamos pelo menos 3
+      lojas distintas para o mesmo produto. <br />
+      Compare e economize!
+    </q-card>
     <q-input
       filled
       bottom-slots
@@ -7,6 +12,8 @@
       label="Pesquisar produtos"
       placeholder="Digite o nome do produto"
       debounce="1000"
+      clear-icon="close"
+      clearable
     >
       <template v-slot:after>
         <q-btn icon="qr_code_scanner" to="nfe" flat round />
@@ -16,10 +23,11 @@
     <q-list v-for="produto in produtos" :key="produto.Id">
       <q-item>
         <q-item-section>
-          <q-item-label>{{ produto.nome }}</q-item-label>
+          <q-item-label class="text-bold">{{ produto.nome }}</q-item-label>
           <!-- <q-item-label caption lines="2">{{ produto.codigo_barras }}</q-item-label> -->
           <q-item-label caption lines="2"
-            >{{ produto.loja }} | {{ formatDateTime(produto.data_hora) }}</q-item-label
+            >{{ produto.loja }} <br />
+            {{ formatDateTime(produto.data_hora) }}</q-item-label
           >
         </q-item-section>
 

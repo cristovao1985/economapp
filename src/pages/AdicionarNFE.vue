@@ -5,7 +5,8 @@
     </q-page-sticky>
     <q-card v-if="!nfeData.produtos?.length" flat bordered class="q-pa-md">
       Para compartilhar produtos com outros usuário você precisa ler o QrCode do cupom fiscal, e
-      depois clicar no botão "Compartilhar Produtos".
+      depois clicar no botão "Compartilhar Produtos". <br />
+      <span class="text-negative">Nenhuma informação sua será capturada ou compartilhada</span>
       <q-card-actions align="right">
         <q-btn flat label="Voltar" to="/" />
       </q-card-actions>
