@@ -106,11 +106,17 @@ export default {
       await nfeApi
         .getNfeData(nfeUrl)
         .then((res) => {
-          console.log(res.data)
           if (res.data.message === 'Nota fiscal já existe na nossa base de dados') {
             alert(`Nota fiscal já existe na nossa base de dados: Nº${res.data.data}`)
           } else {
-            this.nfeData = res.data
+            //this.nfeData = res.data
+            res.data.forEach((produto) => {
+              this.nfeData.produtos.push({
+                codigo_barras: produto.prod.cEAN,
+                nome: produto.prod.xProd,
+                valor: produto.prod.vUnCom,
+              })
+            })
           }
         })
         .catch((err) => {
