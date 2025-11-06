@@ -21,7 +21,7 @@ export default {
     })
   },
   shareNfe: (nfe) => {
-    axios({
+    return axios({
       method: 'post',
       url: 'https://databases-nocodb.ucgkrp.easypanel.host/api/v2/tables/mrac7rvcecar7gd/records',
       data: nfe,

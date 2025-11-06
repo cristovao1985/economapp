@@ -34,6 +34,7 @@
 
         <q-item-section side top>
           <q-item-label class="text-positive text-bold">R${{ produto.valor }}</q-item-label>
+          <q-item-label caption>{{ produto.unidade }}</q-item-label>
           <!-- <q-icon name="star" color="yellow" /> -->
         </q-item-section>
       </q-item>

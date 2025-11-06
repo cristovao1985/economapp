@@ -19,16 +19,16 @@
       <br />
       <span class="text-negative">Produtos encontrados: {{ nfeData.produtos?.length || 0 }}</span>
     </q-card>
-    <q-list v-for="produto in nfeData.produtos" :key="produto.prod.xProd">
+    <q-list v-for="produto in nfeData.produtos" :key="produto.codigo_barras">
       <q-item>
         <q-item-section>
-          <q-item-label>{{ produto.prod.xProd }}</q-item-label>
-          <q-item-label caption lines="2">{{ produto.prod.cEAN }}</q-item-label>
+          <q-item-label>{{ produto.nome }}</q-item-label>
+          <q-item-label caption lines="2">{{ produto.codigo_barras }}</q-item-label>
         </q-item-section>
 
         <q-item-section side top>
-          <q-item-label class="text-positive text-bold">R${{ produto.prod.vProd }}</q-item-label>
-          <!-- <q-icon name="star" color="yellow" /> -->
+          <q-item-label class="text-positive text-bold">R${{ produto.valor }}</q-item-label>
+          <q-item-label caption>{{ produto.unidade }}</q-item-label>
         </q-item-section>
       </q-item>
     </q-list>
@@ -57,6 +57,7 @@
 <script>
 import { QrcodeStream } from 'vue-qrcode-reader'
 import nfeApi from '../api/nfe.api'
+import dateHelper from '../helpers/dateHelper'
 export default {
   name: 'AdicionaNfePage',
   components: {
@@ -110,13 +111,17 @@ export default {
             alert(`Nota fiscal já existe na nossa base de dados: Nº${res.data.data}`)
           } else {
             //this.nfeData = res.data
-            res.data.forEach((produto) => {
+            res.data.produtos.forEach((produto) => {
               this.nfeData.produtos.push({
                 codigo_barras: produto.prod.cEAN,
                 nome: produto.prod.xProd,
-                valor: produto.prod.vUnCom,
+                valor: parseFloat(produto.prod.vUnCom).toFixed(2),
+                unidade: produto.prod.uCom,
               })
             })
+
+            this.nfeData.emissor = res.data.emissor
+            this.nfeData.nfe = res.data.nfe
           }
         })
         .catch((err) => {
@@ -126,16 +131,19 @@ export default {
     shareProducts() {
       this.loading = true
       try {
+        const date = dateHelper.sqlDate(this.nfeData.nfe.ide.dhEmi)
+
         for (const produto of this.nfeData.produtos) {
           nfeApi.shareProduct({
-            codigo_barras: produto.prod.cEAN,
-            nome: produto.prod.xProd,
-            valor: produto.prod.vUnCom,
+            codigo_barras: produto.codigo_barras,
+            nome: produto.nome,
+            valor: produto.valor,
+            unidade: produto.unidade,
             loja: this.nfeData.emissor.xNome,
             uf: this.nfeData.emissor.enderEmit?.UF,
             cidade: this.nfeData.emissor.enderEmit?.xMun,
             numero_nfe: this.nfeData.nfe.ide.nNF,
-            data_hora: new Date(this.nfeData.nfe.ide.dhEmi),
+            data_hora: date,
           })
         }
         this.shareNfe()
