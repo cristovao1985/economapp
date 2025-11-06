@@ -6,7 +6,7 @@
 
         <q-toolbar-title> EconomApp </q-toolbar-title>
 
-        <div>v{{ $q.version }}</div>
+        <div>v0.0.01</div>
       </q-toolbar>
     </q-header>
 

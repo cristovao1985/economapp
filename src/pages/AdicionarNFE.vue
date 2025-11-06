@@ -117,7 +117,7 @@ export default {
           console.log(err)
         })
     },
-    async shareProducts() {
+    shareProducts() {
       this.loading = true
       try {
         for (const produto of this.nfeData.produtos) {
@@ -138,15 +138,15 @@ export default {
         console.log(error)
       }
     },
-    shareNfe() {
+    async shareNfe() {
       const nfe = {
         url: this.url,
         numero_nfe: this.nfeData.nfe.ide.nNF,
       }
-      nfeApi
+      await nfeApi
         .shareNfe(nfe)
         .then(() => {
-          alert('Produtos comprtilhados com sucesso!')
+          alert('Produtos compartilhados com sucesso!')
           this.$router.push({ name: 'home' })
         })
         .catch((err) => {
