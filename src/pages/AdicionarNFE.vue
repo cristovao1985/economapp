@@ -116,7 +116,7 @@ export default {
                 codigo_barras: produto.prod.cEAN,
                 nome: produto.prod.xProd,
                 valor: parseFloat(produto.prod.vUnCom).toFixed(2),
-                unidade: produto.prod.uCom,
+                unidade: produto.prod.uCom.substring(0, 2),
               })
             })
 
@@ -138,7 +138,7 @@ export default {
             codigo_barras: produto.codigo_barras,
             nome: produto.nome,
             valor: produto.valor,
-            unidade: produto.unidade,
+            unidade: produto.unidade.substring(0, 2),
             loja: this.nfeData.emissor.xNome,
             uf: this.nfeData.emissor.enderEmit?.UF,
             cidade: this.nfeData.emissor.enderEmit?.xMun,
