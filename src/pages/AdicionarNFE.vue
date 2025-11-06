@@ -124,7 +124,7 @@ export default {
           nfeApi.shareProduct({
             codigo_barras: produto.prod.cEAN,
             nome: produto.prod.xProd,
-            valor: produto.prod.vProd,
+            valor: produto.prod.vUnCom,
             loja: this.nfeData.emissor.xNome,
             uf: this.nfeData.emissor.enderEmit?.UF,
             cidade: this.nfeData.emissor.enderEmit?.xMun,
@@ -146,6 +146,7 @@ export default {
       nfeApi
         .shareNfe(nfe)
         .then(() => {
+          alert('Produtos comprtilhados com sucesso!')
           this.$router.push({ name: 'home' })
         })
         .catch((err) => {

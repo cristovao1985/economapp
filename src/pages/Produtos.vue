@@ -14,6 +14,7 @@
       debounce="1000"
       clear-icon="close"
       clearable
+      @clear="getProdutos"
     >
       <template v-slot:after>
         <q-btn icon="qr_code_scanner" to="nfe" flat round />
@@ -56,7 +57,11 @@ export default {
   },
   watch: {
     filter() {
-      this.getProdutosByName()
+      if (this.filter) {
+        this.getProdutosByName()
+      } else {
+        this.getProdutos()
+      }
     },
   },
   methods: {
