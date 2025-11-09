@@ -111,15 +111,25 @@ export default {
             alert(`Nota fiscal já existe na nossa base de dados: Nº${res.data.data}`)
           } else {
             //this.nfeData = res.data
-            res.data.produtos.forEach((produto) => {
-              this.nfeData.produtos.push({
-                codigo_barras: produto.prod.cEAN,
-                nome: produto.prod.xProd,
-                valor: parseFloat(produto.prod.vUnCom).toFixed(2),
-                unidade: produto.prod.uCom.substring(0, 2),
+            if (res.data.produtos.length) {
+              res.data.produtos.forEach((produto) => {
+                this.nfeData.produtos.push({
+                  codigo_barras: produto.prod.cEAN,
+                  nome: produto.prod.xProd,
+                  valor: parseFloat(produto.prod.vUnCom).toFixed(2),
+                  unidade: produto.prod.uCom.substring(0, 2),
+                })
               })
-            })
+            } else {
+              const produto = res.data.produtos.prod
 
+              this.nfeData.produtos.push({
+                codigo_barras: produto.cEAN,
+                nome: produto.xProd,
+                valor: parseFloat(produto.vUnCom).toFixed(2),
+                unidade: produto.uCom.substring(0, 2),
+              })
+            }
             this.nfeData.emissor = res.data.emissor
             this.nfeData.nfe = res.data.nfe
           }
