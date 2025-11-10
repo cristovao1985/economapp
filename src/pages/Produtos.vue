@@ -42,7 +42,13 @@
     <div v-else>
       <div v-if="produtos?.length">
         <q-list v-for="produto in produtos" :key="produto.Id">
-          <q-item class="bg-grey-2 q-mb-sm" style="border-radius: 10px">
+          <q-item
+            class="bg-grey-2 q-mb-sm"
+            style="border-radius: 10px"
+            clickable
+            v-ripple
+            @click="getHitoricoProduto(produto.nome, produto.codigo_barras)"
+          >
             <q-item-section>
               <q-item-label class="text-bold">{{ produto.nome }}</q-item-label>
               <!-- <q-item-label caption lines="2">{{ produto.codigo_barras }}</q-item-label> -->
@@ -78,6 +84,7 @@
 <script>
 import CidadeModal from 'src/components/CidadeModal.vue'
 import nfeApi from '../api/nfe.api'
+import dateHelper from 'src/helpers/dateHelper'
 export default {
   name: 'IndexPage',
   components: { CidadeModal },
@@ -136,15 +143,59 @@ export default {
         .finally(() => [(this.loading = false)])
     },
     formatDateTime(dateTime) {
-      const date = new Date(dateTime.replace(' ', 'T'))
-      const formatado = date.toLocaleString('pt-BR', {
-        timeZone: 'America/Sao_Paulo',
-      })
-      return formatado
+      return dateHelper.brazilDateTimeFormat(dateTime)
+    },
+    formatDate(dateTime) {
+      return dateHelper.brazilFormat(dateTime)
     },
     definirCidade() {
       this.showModal.cidade = false
       this.getProdutos()
+    },
+    getHitoricoProduto(nome, codigo_barras) {
+      this.loading = true
+
+      let historico = {
+        produto: nome,
+        valores: [],
+        datas: [],
+        labels: [],
+      }
+      if (codigo_barras === 'SEM GTIN') {
+        nfeApi
+          .getProdutosByName(nome)
+          .then((res) => {
+            res.data.list.forEach((produto) => {
+              historico.valores.push(produto.valor)
+              historico.datas.push(this.formatDate(produto.data_hora))
+              historico.labels.push(`${this.formatDate(produto.data_hora)} - R$${produto.valor}`)
+            })
+
+            localStorage.setItem('historico', JSON.stringify(historico))
+            this.$router.push({ name: 'historico' })
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+          .finally(() => [(this.loading = false)])
+      } else {
+        nfeApi
+          .getProdutosByCodigoBarras(codigo_barras)
+          .then((res) => {
+            res.data.list.forEach((produto) => {
+              historico.valores.push(produto.valor)
+              historico.datas.push(this.formatDate(produto.data_hora))
+              historico.labels.push(`${this.formatDate(produto.data_hora)} - R$${produto.valor}`)
+            })
+
+            localStorage.setItem('historico', JSON.stringify(historico))
+            this.$router.push({ name: 'historico' })
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+          .finally(() => [(this.loading = false)])
+      }
     },
   },
 }

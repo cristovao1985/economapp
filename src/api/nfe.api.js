@@ -36,10 +36,17 @@ export default {
       headers: nocoHeaders,
     })
   },
-  getProdutosByName: (param) => {
+  getProdutosByName: (nome) => {
     return axios({
       method: 'get',
-      url: `https://databases-nocodb.ucgkrp.easypanel.host/api/v2/tables/mznk68lqxmto88c/records?where=(nome,like,${param})~and(cidade,eq,${cidade?.toUpperCase()})&limit=100`,
+      url: `https://databases-nocodb.ucgkrp.easypanel.host/api/v2/tables/mznk68lqxmto88c/records?where=(nome,like,${nome})~and(cidade,eq,${cidade?.toUpperCase()})&limit=100&sort=data_hora`,
+      headers: nocoHeaders,
+    })
+  },
+  getProdutosByCodigoBarras: (codigo_barras) => {
+    return axios({
+      method: 'get',
+      url: `https://databases-nocodb.ucgkrp.easypanel.host/api/v2/tables/mznk68lqxmto88c/records?where=(codigo_barras,eq,${codigo_barras})~and(cidade,eq,${cidade?.toUpperCase()})&limit=100&sort=data_hora`,
       headers: nocoHeaders,
     })
   },
