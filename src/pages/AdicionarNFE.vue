@@ -19,7 +19,7 @@
       <span class="text-negative">Produtos encontrados: {{ nfeData.produtos?.length || 0 }}</span>
     </q-card>
     <q-list v-for="produto in nfeData.produtos" :key="produto.codigo_barras">
-      <q-item>
+      <q-item class="bg-grey-2 q-mb-sm">
         <q-item-section>
           <q-item-label class="text-bold">{{ produto.nome }}</q-item-label>
           <q-item-label caption lines="2">{{ produto.codigo_barras }}</q-item-label>

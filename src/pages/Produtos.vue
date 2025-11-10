@@ -3,7 +3,7 @@
     <q-card class="q-mb-md q-pa-md" flat bordered>
       Pesquise o produto e compare os valores informados entre as lojas. Recomendamos pelo menos 3
       lojas distintas para o mesmo produto. <br />
-      Compare e economize!
+      <strong class="text-positive"> Compare e economize! </strong>
     </q-card>
     <q-input
       filled
@@ -23,7 +23,7 @@
 
     <div v-if="produtos?.length">
       <q-list v-for="produto in produtos" :key="produto.Id">
-        <q-item>
+        <q-item class="bg-grey-2 q-mb-sm">
           <q-item-section>
             <q-item-label class="text-bold">{{ produto.nome }}</q-item-label>
             <!-- <q-item-label caption lines="2">{{ produto.codigo_barras }}</q-item-label> -->
@@ -76,6 +76,7 @@ export default {
   },
   methods: {
     getProdutos() {
+      this.filter = ''
       nfeApi
         .getProdutos()
         .then((res) => {
