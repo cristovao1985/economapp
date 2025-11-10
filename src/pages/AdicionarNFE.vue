@@ -1,8 +1,5 @@
 <template>
   <q-page class="q-ma-md">
-    <q-page-sticky position="bottom-right" :offset="[18, 18]">
-      <q-btn fab icon="qr_code_scanner" color="primary" @click="openModal('qrCode')" />
-    </q-page-sticky>
     <q-card v-if="!nfeData.produtos?.length" flat bordered class="q-pa-md">
       Para compartilhar produtos com outros usuário você precisa ler o QrCode do cupom fiscal, e
       depois clicar no botão "Compartilhar Produtos". <br />
@@ -54,6 +51,10 @@
         </q-card-section>
       </q-card>
     </q-dialog>
+
+    <q-page-sticky position="bottom-right" :offset="[18, 18]">
+      <q-btn fab icon="qr_code_scanner" color="positive" @click="openModal('qrCode')" />
+    </q-page-sticky>
   </q-page>
 </template>
 

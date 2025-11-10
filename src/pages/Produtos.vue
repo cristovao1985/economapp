@@ -17,28 +17,37 @@
       @clear="getProdutos"
     >
       <template v-slot:after>
-        <q-btn icon="qr_code_scanner" to="nfe" flat round />
+        <q-btn icon="refresh" @click="getProdutos" flat round />
       </template>
     </q-input>
 
-    <q-list v-for="produto in produtos" :key="produto.Id">
-      <q-item>
-        <q-item-section>
-          <q-item-label class="text-bold">{{ produto.nome }}</q-item-label>
-          <!-- <q-item-label caption lines="2">{{ produto.codigo_barras }}</q-item-label> -->
-          <q-item-label caption lines="2"
-            >{{ produto.loja }} <br />
-            {{ formatDateTime(produto.data_hora) }}</q-item-label
-          >
-        </q-item-section>
+    <div v-if="produtos?.length">
+      <q-list v-for="produto in produtos" :key="produto.Id">
+        <q-item>
+          <q-item-section>
+            <q-item-label class="text-bold">{{ produto.nome }}</q-item-label>
+            <!-- <q-item-label caption lines="2">{{ produto.codigo_barras }}</q-item-label> -->
+            <q-item-label caption lines="2"
+              >{{ produto.loja }} <br />
+              {{ formatDateTime(produto.data_hora) }}</q-item-label
+            >
+          </q-item-section>
 
-        <q-item-section side top>
-          <q-item-label class="text-positive text-bold">R${{ produto.valor }}</q-item-label>
-          <q-item-label caption>{{ produto.unidade }}</q-item-label>
-          <!-- <q-icon name="star" color="yellow" /> -->
-        </q-item-section>
-      </q-item>
-    </q-list>
+          <q-item-section side top>
+            <q-item-label class="text-positive text-bold">R${{ produto.valor }}</q-item-label>
+            <q-item-label caption>{{ produto.unidade }}</q-item-label>
+            <!-- <q-icon name="star" color="yellow" /> -->
+          </q-item-section>
+        </q-item>
+      </q-list>
+    </div>
+    <div v-else class="flex flex-center">
+      <h6>Nenhum produto a ser mostrado</h6>
+    </div>
+
+    <q-page-sticky position="bottom-right" :offset="[18, 18]">
+      <q-btn fab icon="qr_code_scanner" color="primary" to="nfe" />
+    </q-page-sticky>
   </q-page>
 </template>
 
