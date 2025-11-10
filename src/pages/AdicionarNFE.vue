@@ -173,6 +173,8 @@ export default {
         numero_nfe: this.nfeData.nfe.ide.nNF,
         tipo_pagamento: this.tipoPagamento(this.nfeData.pagamento.detPag.tPag),
         valor_nfe: parseFloat(this.nfeData.pagamento.detPag.vPag),
+        uf: this.nfeData.emissor.enderEmit?.UF,
+        cidade: this.nfeData.emissor.enderEmit?.xMun,
       }
       await nfeApi
         .shareNfe(nfe)
