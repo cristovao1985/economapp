@@ -1,11 +1,11 @@
 <template>
   <q-page class="q-ma-md">
     <q-card v-if="!nfeData.produtos?.length" flat bordered class="q-pa-md">
-      Para compartilhar produtos com outros usuário você precisa ler o QrCode do cupom fiscal, e
+      Para compartilhar produtos com outros usuário você precisa ler o QR Code do cupom fiscal, e
       depois clicar no botão "Compartilhar Produtos". <br />
-      <span class="text-negative">Nenhuma informação sua será capturada ou compartilhada</span>
+      <span class="text-negative">Nenhuma informação sua será capturada ou compartilhada.</span>
       <q-card-actions align="right">
-        <q-btn flat label="Voltar" to="/" />
+        <q-btn flat label="Voltar" to="produtos" dense />
       </q-card-actions>
     </q-card>
 
@@ -19,7 +19,7 @@
       <span class="text-negative">Produtos encontrados: {{ nfeData.produtos?.length || 0 }}</span>
     </q-card>
     <q-list v-for="produto in nfeData.produtos" :key="produto.codigo_barras">
-      <q-item class="bg-grey-2 q-mb-sm">
+      <q-item class="bg-grey-2 q-mb-sm" style="border-radius: 10px">
         <q-item-section>
           <q-item-label class="text-bold">{{ produto.nome }}</q-item-label>
           <q-item-label caption lines="2">{{ produto.codigo_barras }}</q-item-label>

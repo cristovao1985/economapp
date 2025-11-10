@@ -4,13 +4,13 @@
       <q-toolbar>
         <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
         <q-toolbar-title> EconomApp </q-toolbar-title>
-        <div>v0.1.0</div>
+        <div>v0.1.1</div>
       </q-toolbar>
     </q-header>
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
         <q-item-label header>
-          <strong>EconomApp</strong> <br />
+          <strong class="text-primary">EconomApp</strong> <br />
           Comunidade de preços
         </q-item-label>
         <EssentialLink v-for="link in linksList" :key="link.title" v-bind="link" />

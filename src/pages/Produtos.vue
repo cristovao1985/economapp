@@ -3,7 +3,7 @@
     <q-card class="q-mb-md q-pa-md" flat bordered>
       Pesquise o produto e compare os valores informados entre as lojas. Recomendamos pelo menos 3
       lojas distintas para o mesmo produto. <br />
-      <strong class="text-positive"> Compare e economize! </strong>
+      <strong class="text-positive"> Pesquise, compare e economize! </strong>
     </q-card>
     <q-input
       filled
@@ -17,13 +17,13 @@
       @clear="getProdutos"
     >
       <template v-slot:after>
-        <q-btn icon="refresh" @click="getProdutos" flat round />
+        <q-btn icon="refresh" @click="getProdutos" flat round color="primary" />
       </template>
     </q-input>
 
     <div v-if="produtos?.length">
       <q-list v-for="produto in produtos" :key="produto.Id">
-        <q-item class="bg-grey-2 q-mb-sm">
+        <q-item class="bg-grey-2 q-mb-sm" style="border-radius: 10px">
           <q-item-section>
             <q-item-label class="text-bold">{{ produto.nome }}</q-item-label>
             <!-- <q-item-label caption lines="2">{{ produto.codigo_barras }}</q-item-label> -->
