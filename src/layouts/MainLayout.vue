@@ -4,7 +4,7 @@
       <q-toolbar>
         <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
         <q-toolbar-title> EconomApp </q-toolbar-title>
-        <div>v0.1.2</div>
+        <div>v0.1.3</div>
       </q-toolbar>
     </q-header>
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>

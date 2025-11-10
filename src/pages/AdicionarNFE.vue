@@ -62,6 +62,7 @@
 import { QrcodeStream } from 'vue-qrcode-reader'
 import nfeApi from '../api/nfe.api'
 import dateHelper from '../helpers/dateHelper'
+import notify from '../boot/notify'
 export default {
   name: 'AdicionaNfePage',
   components: {
@@ -112,7 +113,7 @@ export default {
         .getNfeData(nfeUrl)
         .then((res) => {
           if (res.data.message === 'Nota fiscal já existe na nossa base de dados') {
-            alert(`Nota fiscal já existe na nossa base de dados: Nº${res.data.data}`)
+            notify.showWarning(`Nota fiscal Nº${res.data.data} já existe na nossa base de dados.`)
           } else {
             //this.nfeData = res.data
             if (res.data.produtos.length) {
@@ -180,7 +181,7 @@ export default {
       await nfeApi
         .shareNfe(nfe)
         .then(() => {
-          alert('Produtos compartilhados com sucesso!')
+          notify.showSuccess('Produtos compartilhados com sucesso!')
           this.$router.push({ name: 'produtos' })
         })
         .catch((err) => {
