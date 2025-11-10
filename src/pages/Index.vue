@@ -1,18 +1,14 @@
 <template>
   <q-page class="q-ma-md">
     <q-card class="q-mb-md q-pa-md" flat bordered>
-      <div class="row">
-        <div class="col-1">
-          <q-img :src="logoPath" width="100px" />
-        </div>
-        <div class="col">
-          O <strong> EconomApp</strong>
-          é uma comunidade de compartilhamento de preços de supermercado no estado de
-          <strong>Pernambuco</strong>.
-          <br />
-          Nosso principal objetivo é ajudar outras pessoas a economizarem nas suas compras.
-        </div>
+      <div class="text-center q-mb-md">
+        <q-img :src="logoPath" width="100px" />
       </div>
+      O <strong> EconomApp</strong>
+      é uma comunidade de compartilhamento de preços de supermercado no estado de
+      <strong>Pernambuco</strong>.
+      <br />
+      Nosso principal objetivo é ajudar outras pessoas a economizarem nas suas compras.
     </q-card>
 
     <q-list>
