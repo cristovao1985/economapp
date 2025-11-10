@@ -120,6 +120,7 @@ export default {
   methods: {
     getProdutos() {
       this.filter = ''
+      this.loading = true
       nfeApi
         .getProdutos()
         .then((res) => {

@@ -41,7 +41,7 @@
     <q-dialog v-model="showModal.qrCode">
       <q-card>
         <q-card-section>
-          Aponte a camêra para o QrCode do cupom fiscal e aguarde até a leitura ser finalizada
+          Aponte a camêra para o QR Code do cupom fiscal e aguarde até a leitura ser finalizada
         </q-card-section>
         <q-card-section>
           <qrcode-stream @detect="onDetect"> </qrcode-stream>
