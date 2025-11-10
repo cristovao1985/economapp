@@ -5,7 +5,7 @@ export default {
     Notify.create({
       message,
       color: 'positive',
-      timeout: 2000,
+      timeout: 2500,
       type: 'positive',
       position: 'top',
     })
@@ -14,7 +14,7 @@ export default {
     Notify.create({
       message,
       color: 'warning',
-      timeout: 2000,
+      timeout: 2500,
       type: 'warning',
       position: 'top',
     })
@@ -23,7 +23,7 @@ export default {
     Notify.create({
       message,
       color: 'negative',
-      timeout: 2000,
+      timeout: 2500,
       type: 'negative',
       position: 'top',
     })

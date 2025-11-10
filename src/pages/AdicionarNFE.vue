@@ -4,9 +4,6 @@
       Para compartilhar produtos com outros usuário você precisa ler o QR Code do cupom fiscal, e
       depois clicar no botão "Compartilhar Produtos". <br />
       <span class="text-negative">Nenhuma informação sua será capturada ou compartilhada.</span>
-      <q-card-actions align="right">
-        <q-btn flat label="Voltar" to="produtos" dense />
-      </q-card-actions>
     </q-card>
 
     <q-card flat bordered v-if="nfeData.emissor?.xNome" class="q-pa-md">

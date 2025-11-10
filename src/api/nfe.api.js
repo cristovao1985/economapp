@@ -1,5 +1,8 @@
 import axios from 'axios'
 const cidade = localStorage.getItem('cidade')
+const nocoHeaders = {
+  'xc-token': '8Hxrh7DVsKRCNf8o43UfT-T2wNCiUL4N9VpJ2Zmk',
+}
 export default {
   getNfeData: (nfeUrl) => {
     return axios({
@@ -15,9 +18,7 @@ export default {
       method: 'post',
       url: 'https://databases-nocodb.ucgkrp.easypanel.host/api/v2/tables/mznk68lqxmto88c/records',
       data: product,
-      headers: {
-        'xc-token': '8Hxrh7DVsKRCNf8o43UfT-T2wNCiUL4N9VpJ2Zmk',
-      },
+      headers: nocoHeaders,
     })
   },
   shareNfe: (nfe) => {
@@ -25,27 +26,21 @@ export default {
       method: 'post',
       url: 'https://databases-nocodb.ucgkrp.easypanel.host/api/v2/tables/mrac7rvcecar7gd/records',
       data: nfe,
-      headers: {
-        'xc-token': '8Hxrh7DVsKRCNf8o43UfT-T2wNCiUL4N9VpJ2Zmk',
-      },
+      headers: nocoHeaders,
     })
   },
   getProdutos: () => {
     return axios({
       method: 'get',
       url: `https://databases-nocodb.ucgkrp.easypanel.host/api/v2/tables/mznk68lqxmto88c/records?where=(cidade,eq,${cidade.toUpperCase()})&limit=200&sort=-data_hora&sort=nome`,
-      headers: {
-        'xc-token': '8Hxrh7DVsKRCNf8o43UfT-T2wNCiUL4N9VpJ2Zmk',
-      },
+      headers: nocoHeaders,
     })
   },
   getProdutosByName: (param) => {
     return axios({
       method: 'get',
       url: `https://databases-nocodb.ucgkrp.easypanel.host/api/v2/tables/mznk68lqxmto88c/records?where=(nome,like,${param})~and(cidade,eq,${cidade.toUpperCase()})&limit=100`,
-      headers: {
-        'xc-token': '8Hxrh7DVsKRCNf8o43UfT-T2wNCiUL4N9VpJ2Zmk',
-      },
+      headers: nocoHeaders,
     })
   },
 }

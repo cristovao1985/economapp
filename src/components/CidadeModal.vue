@@ -1,11 +1,14 @@
 <template>
-  <q-dialog v-model="showModal" persistent>
+  <q-dialog v-model="showModal" persistent position="bottom">
     <q-card>
-      <q-card-section>
-        <span>Precismos que você escolha a cidade no estado de Pernambuco</span>
+      <q-card-section class="row items-center q-pb-none">
+        <span class="text-h6">Escolha a cidade</span>
+        <q-space />
+        <q-btn icon="close" flat round dense @click="definirCidade" />
       </q-card-section>
+      <q-card-section> </q-card-section>
       <q-card-section>
-        <q-select outlined v-model="cidade" :options="cidades" />
+        <q-select outlined v-model="cidade" :options="cidades" label="Cidade" />
       </q-card-section>
       <q-card-section>
         <q-btn
@@ -226,8 +229,8 @@ export default {
   },
   methods: {
     definirCidade() {
-      localStorage.setItem('cidade', this.cidade)
       notify.showSuccess(`${this.cidade} foi definida`)
+      localStorage.setItem('cidade', this.cidade)
       this.$emit('definirCidade', this.cidade)
     },
   },

@@ -2,9 +2,10 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
-        <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
+        <q-btn flat dense icon="arrow_back" v-if="this.$route.name === 'nfe'" to="produtos" />
+        <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" v-else />
         <q-toolbar-title> EconomApp </q-toolbar-title>
-        <q-btn flat dense icon="location_on" @click="showModal = true"></q-btn>
+        <q-btn flat dense icon="location_on" @click="showModal = true" />
       </q-toolbar>
     </q-header>
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
@@ -19,11 +20,14 @@
           <q-item-section>
             <q-item-label>EconomApp</q-item-label>
             <q-item-label caption lines="2">Comunidade de Preços</q-item-label>
+            {{ cidade }}
           </q-item-section>
         </q-item>
+        <q-separator />
         <EssentialLink v-for="link in linksList" :key="link.title" v-bind="link" />
       </q-list>
-      <div class="q-ml-md">v1.0.5</div>
+      <q-separator />
+      <div class="q-ml-md">v1.0.6</div>
       <CidadeModal :show="showModal" @definirCidade="toggleShowModal" />
     </q-drawer>
 
@@ -67,6 +71,7 @@ export default {
           link: '#/nfe',
         },
       ],
+      cidade: localStorage.getItem('cidade') || '',
     }
   },
   computed: {
