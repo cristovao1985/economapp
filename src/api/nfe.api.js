@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+const cidade = localStorage.getItem('cidade')
 export default {
   getNfeData: (nfeUrl) => {
     return axios({
@@ -33,7 +33,7 @@ export default {
   getProdutos: () => {
     return axios({
       method: 'get',
-      url: 'https://databases-nocodb.ucgkrp.easypanel.host/api/v2/tables/mznk68lqxmto88c/records?limit=200&sort=-data_hora&sort=nome',
+      url: `https://databases-nocodb.ucgkrp.easypanel.host/api/v2/tables/mznk68lqxmto88c/records?where=(cidade,eq,${cidade.toUpperCase()})&limit=200&sort=-data_hora&sort=nome`,
       headers: {
         'xc-token': '8Hxrh7DVsKRCNf8o43UfT-T2wNCiUL4N9VpJ2Zmk',
       },

@@ -4,7 +4,7 @@
       <q-toolbar>
         <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
         <q-toolbar-title> EconomApp </q-toolbar-title>
-        <div>v0.1.4</div>
+        <q-btn flat dense icon="location_on" @click="showModal = true"></q-btn>
       </q-toolbar>
     </q-header>
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
@@ -23,6 +23,8 @@
         </q-item>
         <EssentialLink v-for="link in linksList" :key="link.title" v-bind="link" />
       </q-list>
+      <div class="q-ml-md">v1.0.5</div>
+      <CidadeModal :show="showModal" @definirCidade="toggleShowModal" />
     </q-drawer>
 
     <q-page-container>
@@ -32,49 +34,54 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
+import CidadeModal from 'src/components/CidadeModal.vue'
 
-const linksList = [
-  {
-    title: 'Home',
-    caption: 'Economapp',
-    icon: 'home',
-    link: '#/',
-  },
-  {
-    title: 'Produtos',
-    caption: 'Produtos Compartilhados',
-    icon: 'shopping_cart',
-    link: '#/produtos',
-  },
-  {
-    title: 'Compartilhar',
-    caption: 'Compartilhar Produtos',
-    icon: 'qr_code_scanner',
-    link: '#/nfe',
-  },
-]
-
-export default defineComponent({
+export default {
   name: 'MainLayout',
-
   components: {
     EssentialLink,
+    CidadeModal,
   },
-
-  setup() {
-    const leftDrawerOpen = ref(false)
-    const logoPath = require('../assets/economapp-logo.png')
-
+  data() {
     return {
-      linksList,
-      leftDrawerOpen,
-      logoPath,
-      toggleLeftDrawer() {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      },
+      leftDrawerOpen: false,
+      showModal: false,
+      linksList: [
+        {
+          title: 'Home',
+          caption: 'Economapp',
+          icon: 'home',
+          link: '#/',
+        },
+        {
+          title: 'Produtos',
+          caption: 'Produtos Compartilhados',
+          icon: 'shopping_cart',
+          link: '#/produtos',
+        },
+        {
+          title: 'Compartilhar',
+          caption: 'Compartilhar Produtos',
+          icon: 'qr_code_scanner',
+          link: '#/nfe',
+        },
+      ],
     }
   },
-})
+  computed: {
+    logoPath() {
+      return require('../assets/economapp-logo.png')
+    },
+  },
+  methods: {
+    toggleLeftDrawer() {
+      this.leftDrawerOpen = !this.leftDrawerOpen
+    },
+    toggleShowModal() {
+      this.showModal = !this.showModal
+      location.reload()
+    },
+  },
+}
 </script>

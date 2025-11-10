@@ -5,11 +5,12 @@
       lojas distintas para o mesmo produto. <br />
       <strong class="text-positive"> Pesquise, compare e economize! </strong>
     </q-card>
+    <strong>{{ cidade }}-PE</strong>
     <q-input
       filled
       bottom-slots
       v-model="filter"
-      label="Pesquisar produtos"
+      :label="`Pesquisar produtos em ${cidade}`"
       placeholder="Digite o nome do produto"
       debounce="1000"
       clear-icon="close"
@@ -45,6 +46,8 @@
       <h6>Nenhum produto a ser mostrado</h6>
     </div>
 
+    <CidadeModal :show="showModal.cidade" @definirCidade="definirCidade" />
+
     <q-page-sticky position="bottom-right" :offset="[18, 18]">
       <q-btn fab icon="qr_code_scanner" color="primary" to="nfe" />
     </q-page-sticky>
@@ -52,18 +55,29 @@
 </template>
 
 <script>
+import CidadeModal from 'src/components/CidadeModal.vue'
 import nfeApi from '../api/nfe.api'
 export default {
   name: 'IndexPage',
-  components: {},
+  components: { CidadeModal },
   data() {
     return {
       produtos: [],
       filter: '',
+      cidade: '',
+      showModal: {
+        cidade: false,
+      },
     }
   },
   created() {
-    this.getProdutos()
+    const cidade = localStorage.getItem('cidade')
+    if (!cidade) {
+      this.showModal.cidade = true
+    } else {
+      this.cidade = localStorage.getItem('cidade')
+      this.getProdutos()
+    }
   },
   watch: {
     filter() {
@@ -102,6 +116,11 @@ export default {
         timeZone: 'America/Sao_Paulo',
       })
       return formatado
+    },
+    definirCidade() {
+      this.showModal.cidade = false
+
+      this.getProdutos()
     },
   },
 }
