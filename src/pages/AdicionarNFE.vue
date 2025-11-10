@@ -13,7 +13,9 @@
     </q-card>
 
     <q-card flat bordered v-if="nfeData.emissor?.xNome" class="q-pa-md">
-      Nº Nf-e: {{ nfeData.nfe.ide.nNF }} às {{ nfeData.nfe.ide.dhEmi }}<br />
+      Nº NF-e: {{ nfeData.nfe.ide.nNF }} às {{ nfeData.nfe.ide.dhEmi }}<br />
+      R$ {{ nfeData.pagamento.detPag.vPag }} em {{ tipoPagamento(nfeData.pagamento.detPag.tPag) }}
+      <br />
       {{ nfeData.emissor.xNome }} <br />
       {{ nfeData.emissor.enderEmit?.xMun }}/ {{ nfeData.emissor.enderEmit?.UF }}
       <br />
@@ -22,7 +24,7 @@
     <q-list v-for="produto in nfeData.produtos" :key="produto.codigo_barras">
       <q-item>
         <q-item-section>
-          <q-item-label>{{ produto.nome }}</q-item-label>
+          <q-item-label class="text-bold">{{ produto.nome }}</q-item-label>
           <q-item-label caption lines="2">{{ produto.codigo_barras }}</q-item-label>
         </q-item-section>
 
@@ -39,6 +41,7 @@
         color="primary"
         @click="shareProducts"
         :loading="loading"
+        size="large"
       />
     </q-footer>
     <q-dialog v-model="showModal.qrCode">
@@ -132,6 +135,8 @@ export default {
             }
             this.nfeData.emissor = res.data.emissor
             this.nfeData.nfe = res.data.nfe
+
+            this.nfeData.pagamento = res.data.pagamento
           }
         })
         .catch((err) => {
@@ -166,16 +171,34 @@ export default {
       const nfe = {
         url: this.url,
         numero_nfe: this.nfeData.nfe.ide.nNF,
+        tipo_pagamento: this.tipoPagamento(this.nfeData.pagamento.detPag.tPag),
+        valor_nfe: parseFloat(this.nfeData.pagamento.detPag.vPag),
       }
       await nfeApi
         .shareNfe(nfe)
         .then(() => {
           alert('Produtos compartilhados com sucesso!')
-          this.$router.push({ name: 'home' })
+          this.$router.push({ name: 'produtos' })
         })
         .catch((err) => {
           console.log(err)
         })
+    },
+    tipoPagamento(tipo) {
+      switch (tipo) {
+        case '01':
+          return 'Dinheiro'
+        case '02':
+          return 'Cheque'
+        case '03':
+          return 'Cartão de Crédito'
+        case '04':
+          return 'Cartão de Débito'
+        case '11':
+          return 'Vale Alimentação'
+        case '12':
+          return 'Vale Refeição'
+      }
     },
   },
 }
