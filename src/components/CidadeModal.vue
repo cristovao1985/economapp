@@ -229,6 +229,7 @@ export default {
   },
   methods: {
     definirCidade() {
+      location.reload()
       notify.showSuccess(`${this.cidade} foi definida`)
       localStorage.setItem('cidade', this.cidade)
       this.$emit('definirCidade', this.cidade)

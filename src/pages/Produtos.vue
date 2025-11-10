@@ -5,7 +5,14 @@
       lojas distintas para o mesmo produto. <br />
       <strong class="text-positive"> Pesquise, compare e economize! </strong> <br />
       <br />
-      <strong>{{ cidade }}-PE</strong>
+      <q-btn
+        flat
+        dense
+        icon="location_on"
+        @click="showModal.cidade = true"
+        :label="cidade"
+        v-if="cidade"
+      />
     </q-card>
 
     <q-input
@@ -24,7 +31,7 @@
         <q-icon name="search" />
       </template>
       <template v-slot:after>
-        <q-btn icon="refresh" @click="getProdutos" flat round color="primary" />
+        <q-btn icon="refresh" @click="getProdutos" flat round color="primary" :disable="loading" />
       </template>
     </q-input>
 
@@ -56,6 +63,7 @@
       </div>
       <div v-else class="flex flex-center">
         <h6>Nenhum produto a ser mostrado</h6>
+        Tente mudar a cidade e/ou o nome do produto
       </div>
     </div>
 

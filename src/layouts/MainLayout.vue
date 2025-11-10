@@ -20,14 +20,14 @@
           <q-item-section>
             <q-item-label>EconomApp</q-item-label>
             <q-item-label caption lines="2">Comunidade de Preços</q-item-label>
-            {{ cidade }}
+            <q-btn flat dense icon="location_on" @click="showModal = true" :label="cidade" />
           </q-item-section>
         </q-item>
         <q-separator />
         <EssentialLink v-for="link in linksList" :key="link.title" v-bind="link" />
       </q-list>
       <q-separator />
-      <div class="q-ml-md">v1.0.6</div>
+      <div class="q-ml-md">v1.0.7</div>
       <CidadeModal :show="showModal" @definirCidade="toggleShowModal" />
     </q-drawer>
 
@@ -85,7 +85,6 @@ export default {
     },
     toggleShowModal() {
       this.showModal = !this.showModal
-      location.reload()
     },
   },
 }
