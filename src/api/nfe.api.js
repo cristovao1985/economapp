@@ -16,7 +16,7 @@ export default {
   shareProduct: (product) => {
     axios({
       method: 'post',
-      url: 'https://databases-nocodb.ucgkrp.easypanel.host/api/v2/tables/mznk68lqxmto88c/records',
+      url: 'https://nocodb.lineasoft.com.br/api/v2/tables/mznk68lqxmto88c/records',
       data: product,
       headers: nocoHeaders,
     })
@@ -24,7 +24,7 @@ export default {
   shareNfe: (nfe) => {
     return axios({
       method: 'post',
-      url: 'https://databases-nocodb.ucgkrp.easypanel.host/api/v2/tables/mrac7rvcecar7gd/records',
+      url: 'https://nocodb.lineasoft.com.br/api/v2/tables/mrac7rvcecar7gd/records',
       data: nfe,
       headers: nocoHeaders,
     })
