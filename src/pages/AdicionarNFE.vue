@@ -96,7 +96,7 @@ export default {
     },
     openModal(modal) {
       this.showModal[modal] = true
-
+      this.timeLeft = 20
       const countdown = () => {
         if (this.timeLeft > 0) {
           this.timer = setTimeout(() => {
@@ -125,7 +125,7 @@ export default {
     async getNfeData(nfeUrl) {
       this.closeModal('qrCode')
       await nfeApi
-        .getNfeData(nfeUrl)
+        .getNfeData(nfeUrl.trim())
         .then((res) => {
           if (res.data.message === 'Nota fiscal já existe na nossa base de dados') {
             notify.showWarning(`Nota fiscal Nº${res.data.data} já existe na nossa base de dados.`)
@@ -158,6 +158,7 @@ export default {
         })
         .catch((err) => {
           console.log(err)
+          notify.showError('Houve um erro ao ler nota fiscal')
         })
     },
     shareProducts() {
