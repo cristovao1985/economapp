@@ -33,7 +33,7 @@
         <EssentialLink v-for="link in linksList" :key="link.title" v-bind="link" />
       </q-list>
       <q-separator />
-      <div class="q-ml-md">v1.0.8</div>
+      <div class="q-ml-md">v1.0.9</div>
       <CidadeModal :show="showModal" @definirCidade="toggleShowModal" />
     </q-drawer>
 

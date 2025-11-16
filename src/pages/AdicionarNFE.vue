@@ -42,6 +42,8 @@
       <q-card>
         <q-card-section>
           Aponte a camêra para o QR Code do cupom fiscal e aguarde até a leitura ser finalizada
+          <br />
+          <span class="text-negative">Fechando em {{ timeLeft }}</span>
         </q-card-section>
         <q-card-section>
           <qrcode-stream @detect="onDetect"> </qrcode-stream>
@@ -77,6 +79,7 @@ export default {
       },
       loading: false,
       url: '',
+      timeLeft: 20,
     }
   },
   created() {
@@ -93,6 +96,21 @@ export default {
     },
     openModal(modal) {
       this.showModal[modal] = true
+
+      const countdown = () => {
+        if (this.timeLeft > 0) {
+          this.timer = setTimeout(() => {
+            this.timeLeft--
+            countdown()
+          }, 1000) // Diminui 1 a cada 2000ms (2 segundos)
+        } else {
+          this.timer = null
+          this.timeLeft = 20
+          this.showModal[modal] = false
+        }
+      }
+
+      countdown()
     },
     closeModal(modal) {
       this.showModal[modal] = false
