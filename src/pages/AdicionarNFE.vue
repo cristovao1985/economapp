@@ -6,11 +6,11 @@
       <span class="text-negative">Nenhuma informação sua será capturada ou compartilhada.</span>
     </q-card>
 
-    <q-card flat bordered v-if="nfeData.emissor?.xNome" class="q-pa-md">
+    <q-card flat bordered v-if="nfeData.emissor?.xFant" class="q-pa-md">
       Nº NF-e: {{ nfeData.nfe.ide.nNF }} às {{ nfeData.nfe.ide.dhEmi }}<br />
       R$ {{ nfeData.pagamento.detPag.vPag }} em {{ tipoPagamento(nfeData.pagamento.detPag.tPag) }}
       <br />
-      {{ nfeData.emissor.xNome }} <br />
+      {{ nfeData.emissor.xFant }} <br />
       {{ nfeData.emissor.enderEmit?.xMun }}/ {{ nfeData.emissor.enderEmit?.UF }}
       <br />
       <span class="text-negative">Produtos encontrados: {{ nfeData.produtos?.length || 0 }}</span>
@@ -153,7 +153,7 @@ export default {
             nome: produto.nome,
             valor: produto.valor,
             unidade: produto.unidade.substring(0, 2),
-            loja: this.nfeData.emissor.xNome,
+            loja: this.nfeData.emissor.xFant,
             uf: this.nfeData.emissor.enderEmit?.UF,
             cidade: this.nfeData.emissor.enderEmit?.xMun,
             numero_nfe: this.nfeData.nfe.ide.nNF,
