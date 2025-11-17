@@ -129,6 +129,9 @@ export default {
         .then((res) => {
           if (res.data.message === 'Nota fiscal já existe na nossa base de dados') {
             notify.showWarning(`Nota fiscal Nº${res.data.data} já existe na nossa base de dados.`)
+          }
+          if (res.data.message === 'Nota fiscal não autorizada') {
+            notify.showWarning(`Nota fiscal não autorizada. Qr Code Inválido`)
           } else {
             //this.nfeData = res.data
             if (res.data.produtos.length) {
