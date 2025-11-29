@@ -6,7 +6,7 @@
       <span class="text-negative">Nenhuma informação sua será capturada ou compartilhada.</span>
     </q-card>
 
-    <q-card flat bordered v-if="nfeData.emissor?.xFant" class="q-pa-md">
+    <q-card flat bordered v-if="nfeData.emissor?.xFant" class="q-mb-md q-pa-md">
       Nº NF-e: {{ nfeData.nfe.ide.nNF }} às {{ nfeData.nfe.ide.dhEmi }}<br />
       R$ {{ nfeData.pagamento.detPag.vPag }} em {{ tipoPagamento(nfeData.pagamento.detPag.tPag) }}
       <br />
@@ -139,7 +139,9 @@ export default {
                 this.nfeData.produtos.push({
                   codigo_barras: produto.prod.cEAN,
                   nome: produto.prod.xProd,
-                  valor: parseFloat(produto.prod.vProd) - parseFloat(produto.prod.vDesc),
+                  valor: parseFloat(
+                    parseFloat(produto.prod.vProd) - parseFloat(produto.prod.vDesc),
+                  ).toFixed(2),
                   unidade: produto.prod.uCom.substring(0, 2),
                 })
               })
@@ -149,7 +151,7 @@ export default {
               this.nfeData.produtos.push({
                 codigo_barras: produto.cEAN,
                 nome: produto.xProd,
-                valor: parseFloat(produto.vProd) - parseFloat(produto.vDesc),
+                valor: parseFloat(parseFloat(produto.vProd) - parseFloat(produto.vDesc)).toFixed(2),
                 unidade: produto.uCom.substring(0, 2),
               })
             }
