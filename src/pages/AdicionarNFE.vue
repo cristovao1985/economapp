@@ -140,7 +140,7 @@ export default {
                   codigo_barras: produto.prod.cEAN,
                   nome: produto.prod.xProd,
                   valor: parseFloat(
-                    parseFloat(produto.prod.vProd) - parseFloat(produto.prod.vDesc),
+                    parseFloat(produto.prod.vProd) - parseFloat(produto.prod.vDesc || 0),
                   ).toFixed(2),
                   unidade: produto.prod.uCom.substring(0, 2),
                 })
@@ -151,7 +151,9 @@ export default {
               this.nfeData.produtos.push({
                 codigo_barras: produto.cEAN,
                 nome: produto.xProd,
-                valor: parseFloat(parseFloat(produto.vProd) - parseFloat(produto.vDesc)).toFixed(2),
+                valor: parseFloat(
+                  parseFloat(produto.vProd) - parseFloat(produto.vDesc || 0),
+                ).toFixed(2),
                 unidade: produto.uCom.substring(0, 2),
               })
             }
