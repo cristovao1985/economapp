@@ -10,7 +10,7 @@
       Nº NF-e: {{ nfeData.nfe.ide.nNF }} às {{ nfeData.nfe.ide.dhEmi }}<br />
       R$ {{ nfeData.pagamento.detPag.vPag }} em {{ tipoPagamento(nfeData.pagamento.detPag.tPag) }}
       <br />
-      {{ nfeData.emissor.xFant }} <br />
+      {{ nfeData.emissor.xFant || nfeData.emissor.xNome }} <br />
       {{ nfeData.emissor.enderEmit?.xMun }}/ {{ nfeData.emissor.enderEmit?.UF }}
       <br />
       <span class="text-negative">Produtos encontrados: {{ nfeData.produtos?.length || 0 }}</span>
@@ -139,9 +139,7 @@ export default {
                 this.nfeData.produtos.push({
                   codigo_barras: produto.prod.cEAN,
                   nome: produto.prod.xProd,
-                  valor: parseFloat(
-                    parseFloat(produto.prod.vProd) - parseFloat(produto.prod.vDesc || 0),
-                  ).toFixed(2),
+                  valor: parseFloat(produto.prod.vUnCom).toFixed(2),
                   unidade: produto.prod.uCom.substring(0, 2),
                 })
               })
@@ -151,9 +149,7 @@ export default {
               this.nfeData.produtos.push({
                 codigo_barras: produto.cEAN,
                 nome: produto.xProd,
-                valor: parseFloat(
-                  parseFloat(produto.vProd) - parseFloat(produto.vDesc || 0),
-                ).toFixed(2),
+                valor: parseFloat(produto.vUnCom).toFixed(2),
                 unidade: produto.uCom.substring(0, 2),
               })
             }
@@ -179,7 +175,7 @@ export default {
             nome: produto.nome,
             valor: produto.valor,
             unidade: produto.unidade.substring(0, 2),
-            loja: this.nfeData.emissor.xFant,
+            loja: this.nfeData.emissor.xFant || this.nfeData.emissor.xNome,
             uf: this.nfeData.emissor.enderEmit?.UF,
             cidade: this.nfeData.emissor.enderEmit?.xMun,
             numero_nfe: this.nfeData.nfe.ide.nNF,

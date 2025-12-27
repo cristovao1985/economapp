@@ -12,6 +12,7 @@
         @click="showModal.cidade = true"
         :label="cidade"
         v-if="cidade"
+        color="red"
       />
     </q-card>
 

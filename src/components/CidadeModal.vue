@@ -14,7 +14,7 @@
         <q-btn
           size="large"
           label="Definir cidade"
-          color="primary"
+          color="positive"
           class="full-width"
           v-if="cidade"
           @click="definirCidade"
